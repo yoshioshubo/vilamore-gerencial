@@ -1,4 +1,4 @@
-﻿import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../contexts/AuthContext'
 import { LogOut, User } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
@@ -12,25 +12,39 @@ export default function Header() {
   }
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur border-b border-white/10" style={{ background: 'rgba(10,10,46,0.92)' }}>
-      <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-        <span className="text-xs font-semibold tracking-widest text-climax-gold uppercase">
-          VILAMORE GERENCIAL
+    <header style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+      backdropFilter: 'blur(12px)',
+      background: 'rgba(50, 5, 5, 0.92)',
+      borderBottom: '1px solid rgba(255,150,100,0.15)',
+    }}>
+      <div style={{
+        maxWidth: '1200px', margin: '0 auto', padding: '0 1rem',
+        height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      }}>
+        <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.15em', color: '#E8B89A', textTransform: 'uppercase' }}>
+          Vilamore Gerencial
         </span>
         {user && (
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 text-sm text-gray-400">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#aaa' }}>
               <User size={14} />
               <span>{user.displayName}</span>
               {user.role === 'proprietario' && (
-                <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-climax-gold text-climax-dark tracking-wider">
+                <span style={{
+                  padding: '2px 6px', fontSize: '10px', fontWeight: 700,
+                  borderRadius: '4px', background: '#C0392B', color: '#fff', letterSpacing: '0.1em',
+                }}>
                   ADMIN
                 </span>
               )}
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-red-400 transition-colors"
+              style={{
+                display: 'flex', alignItems: 'center', gap: '4px',
+                fontSize: '12px', color: '#666', background: 'none', border: 'none', cursor: 'pointer',
+              }}
             >
               <LogOut size={14} />
               Sair

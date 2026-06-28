@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, LogIn } from 'lucide-react'
@@ -6,16 +6,16 @@ import { Eye, EyeOff, LogIn } from 'lucide-react'
 export default function Login() {
   const { login } = useAuth()
   const navigate = useNavigate()
-  const [form, setForm]     = useState({ username: '', password: '' })
-  const [error, setError]   = useState('')
-  const [showPw, setShowPw] = useState(false)
+  const [form, setForm]       = useState({ username: '', password: '' })
+  const [error, setError]     = useState('')
+  const [showPw, setShowPw]   = useState(false)
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     setLoading(true)
-    await new Promise(r => setTimeout(r, 400)) // micro-delay visual
+    await new Promise(r => setTimeout(r, 400))
     const result = login(form.username.trim(), form.password)
     setLoading(false)
     if (!result.ok) { setError(result.error); return }
@@ -23,52 +23,86 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0A0A2E 0%, #12003A 40%, #2A0010 100%)' }}>
-      {/* Background ornamental */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-climax-gold/5 blur-3xl" />
-      </div>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(160deg, #3D0000 0%, #6B1010 40%, #8B2020 100%)',
+      fontFamily: 'Inter, system-ui, sans-serif',
+    }}>
+      <div style={{ width: '100%', maxWidth: '380px', padding: '0 1.5rem' }}>
 
-      <div className="relative w-full max-w-sm px-4 animate-fade-up">
-        {/* Logo */}
-        <div className="flex flex-col items-center mb-10">
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <img
             src="/logo.jpg"
-            alt="Vilamore"
-            className="w-32 h-32 object-contain rounded-2xl shadow-2xl shadow-black/60 mb-4"
+            alt="Confeitaria Vilamore"
+            style={{ width: '160px', height: '160px', objectFit: 'contain', borderRadius: '16px' }}
           />
-          <div className="gold-divider" />
         </div>
 
-        <form onSubmit={handleSubmit} className="card space-y-5">
-          <div>
-            <label className="block text-xs text-gray-400 mb-1.5 uppercase tracking-wider">UsuÃ¡rio</label>
+        <div style={{
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent, rgba(255,200,150,0.4), transparent)',
+          marginBottom: '2rem',
+        }} />
+
+        <div style={{
+          background: 'rgba(60, 10, 10, 0.85)',
+          border: '1px solid rgba(255,180,120,0.2)',
+          borderRadius: '16px',
+          padding: '2rem',
+        }}>
+          <div style={{ marginBottom: '1.25rem' }}>
+            <label style={{
+              display: 'block', fontSize: '11px', letterSpacing: '0.15em',
+              textTransform: 'uppercase', color: 'rgba(255,200,150,0.7)', marginBottom: '0.5rem',
+            }}>
+              Usuario
+            </label>
             <input
               type="text"
               value={form.username}
               onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
-              className="w-full bg-climax-dark border border-climax-dark-border rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-climax-gold transition-colors"
-              placeholder="funcionario1 / Flavia"
-              required
-              autoFocus
+              placeholder="PEDROIGOR"
+              required autoFocus
+              style={{
+                width: '100%', background: 'rgba(20,0,0,0.6)',
+                border: '1px solid rgba(255,180,120,0.25)', borderRadius: '10px',
+                padding: '10px 14px', fontSize: '14px', color: '#fff',
+                outline: 'none', boxSizing: 'border-box',
+              }}
             />
           </div>
 
-          <div>
-            <label className="block text-xs text-gray-400 mb-1.5 uppercase tracking-wider">Senha</label>
-            <div className="relative">
+          <div style={{ marginBottom: '1.25rem' }}>
+            <label style={{
+              display: 'block', fontSize: '11px', letterSpacing: '0.15em',
+              textTransform: 'uppercase', color: 'rgba(255,200,150,0.7)', marginBottom: '0.5rem',
+            }}>
+              Senha
+            </label>
+            <div style={{ position: 'relative' }}>
               <input
                 type={showPw ? 'text' : 'password'}
                 value={form.password}
                 onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
-                className="w-full bg-climax-dark border border-climax-dark-border rounded-lg px-4 py-2.5 pr-10 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-climax-gold transition-colors"
-                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                placeholder="••••••••"
                 required
+                style={{
+                  width: '100%', background: 'rgba(20,0,0,0.6)',
+                  border: '1px solid rgba(255,180,120,0.25)', borderRadius: '10px',
+                  padding: '10px 40px 10px 14px', fontSize: '14px', color: '#fff',
+                  outline: 'none', boxSizing: 'border-box',
+                }}
               />
               <button
-                type="button"
-                onClick={() => setShowPw(v => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                type="button" onClick={() => setShowPw(v => !v)}
+                style={{
+                  position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)',
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  color: 'rgba(255,200,150,0.5)', padding: 0, display: 'flex',
+                }}
               >
                 {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
@@ -76,29 +110,49 @@ export default function Login() {
           </div>
 
           {error && (
-            <p className="text-sm text-red-400 bg-red-900/20 border border-red-800 rounded-lg px-3 py-2">
+            <div style={{
+              fontSize: '13px', color: '#fca5a5', background: 'rgba(180,0,0,0.3)',
+              border: '1px solid rgba(220,50,50,0.4)', borderRadius: '8px',
+              padding: '10px 12px', marginBottom: '1rem',
+            }}>
               {error}
-            </p>
+            </div>
           )}
 
           <button
-            type="submit"
-            disabled={loading}
-            className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+            type="button" disabled={loading} onClick={handleSubmit}
+            style={{
+              width: '100%',
+              background: loading ? 'rgba(180,100,50,0.5)' : 'linear-gradient(135deg, #C0392B, #E74C3C)',
+              border: 'none', borderRadius: '10px', padding: '12px',
+              fontSize: '14px', fontWeight: '600', color: '#fff',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              gap: '8px', letterSpacing: '0.05em',
+            }}
           >
-            {loading ? (
-              <span className="inline-block w-4 h-4 border-2 border-climax-dark/40 border-t-climax-dark rounded-full animate-spin" />
-            ) : (
-              <LogIn size={16} />
-            )}
+            {loading
+              ? <span style={{
+                  width: '16px', height: '16px',
+                  border: '2px solid rgba(255,255,255,0.3)', borderTop: '2px solid #fff',
+                  borderRadius: '50%', animation: 'spin 0.8s linear infinite', display: 'inline-block',
+                }} />
+              : <LogIn size={16} />
+            }
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
-        </form>
+        </div>
 
-        <p className="text-center text-xs text-gray-600 mt-6">
-          Â© {new Date().getFullYear()} Climax â€” Uso interno
+        <p style={{ textAlign: 'center', fontSize: '12px', color: 'rgba(255,200,150,0.3)', marginTop: '1.5rem' }}>
+          &copy; {new Date().getFullYear()} Vilamore &mdash; Uso interno
         </p>
       </div>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+        input::placeholder { color: rgba(255,255,255,0.25); }
+        input:focus { border-color: rgba(255,180,120,0.6) !important; }
+      `}</style>
     </div>
   )
 }
