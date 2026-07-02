@@ -88,7 +88,7 @@ function toNum(val) {
 }
 
 export function calcAuditoria(item) {
-  const movimentacao = item.estoqueFinal - item.estoqueInicial
+  const movimentacao = item.estoqueInicial - item.estoqueFinal
   const diff = item.vendas - movimentacao
   return { movimentacao, diff, status: diff === 0 ? 'ok' : 'alerta' }
 }

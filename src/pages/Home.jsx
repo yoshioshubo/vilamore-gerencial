@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Package, TrendingUp, Landmark, BarChart2, LayoutDashboard, ArrowLeftRight, Lock } from 'lucide-react'
+import { Package, TrendingUp, Landmark, BarChart2, LayoutDashboard, ArrowLeftRight, Lock, ShoppingCart } from 'lucide-react'
 import Header from '../components/Header'
 
-const BG = 'linear-gradient(160deg, #3D0000 0%, #6B1010 40%, #8B2020 100%)'
+const BG = '#ffffff'
 
 const MODULES = [
-  { id: 'estoque',   label: 'CONTROLE DE ESTOQUE',    icon: Package,          active: true,  path: '/estoque', gradient: ['#C0392B','#E74C3C'], description: 'Ingestao · Auditoria · LOG' },
+  { id: 'estoque',   label: 'CONTROLE DE ESTOQUE',    icon: Package,          active: true,  path: '/estoque',   gradient: ['#C0392B','#E74C3C'], description: 'Ingestao · Auditoria · LOG' },
+  { id: 'entradas',  label: 'ENTRADAS / COMPRAS',     icon: ShoppingCart,     active: true,  path: '/entradas',  gradient: ['#1a5a3a','#27ae60'], description: 'Notas · WhatsApp · Histórico' },
   { id: 'vendas',    label: 'OTIMIZACAO DE VENDAS',    icon: TrendingUp,       active: false, gradient: ['#1a6b3a','#27ae60'] },
   { id: 'bancaria',  label: 'CONCILIACAO BANCARIA',    icon: Landmark,         active: false, gradient: ['#1a4a8a','#2980b9'] },
   { id: 'dre',       label: 'DRE GERENCIAL',           icon: BarChart2,        active: false, gradient: ['#5b2d8a','#8e44ad'] },
@@ -71,21 +72,27 @@ export default function Home() {
   return (
     <div style={{ minHeight: '100vh', background: BG }}>
       <Header />
-      <main style={{ paddingTop: '56px', maxWidth: '768px', margin: '0 auto', padding: '56px 1rem 2rem' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2.5rem' }}>
-          <img
-            src="/logo.jpg"
-            alt="Confeitaria Vilamore"
-            style={{ width: '160px', height: '160px', objectFit: 'contain', borderRadius: '16px', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}
-          />
-          <p style={{ fontSize: '11px', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginTop: '1rem' }}>
-            Sistema de Gestao Integrada
-          </p>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-          {MODULES.map(mod => (
-            <ModuleButton key={mod.id} mod={mod} onClick={navigate} />
-          ))}
+      {/* Logo canto superior esquerdo */}
+      <div style={{ position: 'fixed', top: '72px', left: '1.5rem' }}>
+        <img
+          src="/logo.jpg"
+          alt="Confeitaria Vilamore"
+          style={{ width: '80px', height: '80px', objectFit: 'contain', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }}
+        />
+      </div>
+
+      <main style={{ height: 'calc(100vh - 56px)', marginTop: '56px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* Texto no topo, alinhado com a logo */}
+        <p style={{ fontSize: '16.5px', letterSpacing: '0.25em', textTransform: 'uppercase', color: '#555555', margin: '28px 0 0' }}>
+          Sistema de Gestao Integrada
+        </p>
+        {/* Botões centralizados no espaço restante */}
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', width: '100%', maxWidth: '768px', padding: '0 1rem' }}>
+            {MODULES.map(mod => (
+              <ModuleButton key={mod.id} mod={mod} onClick={navigate} />
+            ))}
+          </div>
         </div>
       </main>
     </div>

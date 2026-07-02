@@ -15,14 +15,14 @@ export default function Header() {
     <header style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
       backdropFilter: 'blur(12px)',
-      background: 'rgba(50, 5, 5, 0.92)',
-      borderBottom: '1px solid rgba(255,150,100,0.15)',
+      background: '#1a2744',
+      borderBottom: '1px solid rgba(255,255,255,0.08)',
     }}>
       <div style={{
         maxWidth: '1200px', margin: '0 auto', padding: '0 1rem',
         height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
-        <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.15em', color: '#E8B89A', textTransform: 'uppercase' }}>
+        <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.15em', color: '#ffffff', textTransform: 'uppercase' }}>
           Vilamore Gerencial
         </span>
         {user && (
