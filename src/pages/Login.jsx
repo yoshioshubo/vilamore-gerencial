@@ -39,37 +39,34 @@ export default function Login() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'linear-gradient(160deg, #3D0000 0%, #6B1010 40%, #8B2020 100%)',
+      background: '#ffffff',
       fontFamily: 'Inter, system-ui, sans-serif',
+      position: 'relative',
     }}>
+      {/* Logo canto superior esquerdo */}
+      <div style={{ position: 'fixed', top: '1.5rem', left: '1.5rem' }}>
+        <img
+          src="/logo.jpg"
+          alt="Confeitaria Vilamore"
+          style={{ width: '80px', height: '80px', objectFit: 'contain', borderRadius: '12px' }}
+        />
+      </div>
+
       <div style={{ width: '100%', maxWidth: '380px', padding: '0 1.5rem' }}>
 
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <img
-            src="/logo.jpg"
-            alt="Confeitaria Vilamore"
-            style={{ width: '160px', height: '160px', objectFit: 'contain', borderRadius: '16px' }}
-          />
-        </div>
-
         <div style={{
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent, rgba(255,200,150,0.4), transparent)',
-          marginBottom: '2rem',
-        }} />
-
-        <div style={{
-          background: 'rgba(60, 10, 10, 0.85)',
-          border: '1px solid rgba(255,180,120,0.2)',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
           borderRadius: '16px',
           padding: '2rem',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
         }}>
           <div style={{ marginBottom: '1.25rem' }}>
             <label style={{
               display: 'block', fontSize: '11px', letterSpacing: '0.15em',
-              textTransform: 'uppercase', color: 'rgba(255,200,150,0.7)', marginBottom: '0.5rem',
+              textTransform: 'uppercase', color: '#6b7280', marginBottom: '0.5rem',
             }}>
-              Usuario
+              Usuário
             </label>
             <input
               type="text"
@@ -78,9 +75,9 @@ export default function Login() {
               placeholder="PEDROIGOR"
               required autoFocus
               style={{
-                width: '100%', background: 'rgba(20,0,0,0.6)',
-                border: '1px solid rgba(255,180,120,0.25)', borderRadius: '10px',
-                padding: '10px 14px', fontSize: '14px', color: '#fff',
+                width: '100%', background: '#f9fafb',
+                border: '1px solid #d1d5db', borderRadius: '10px',
+                padding: '10px 14px', fontSize: '14px', color: '#111',
                 outline: 'none', boxSizing: 'border-box',
               }}
             />
@@ -89,7 +86,7 @@ export default function Login() {
           <div style={{ marginBottom: '1.25rem' }}>
             <label style={{
               display: 'block', fontSize: '11px', letterSpacing: '0.15em',
-              textTransform: 'uppercase', color: 'rgba(255,200,150,0.7)', marginBottom: '0.5rem',
+              textTransform: 'uppercase', color: '#6b7280', marginBottom: '0.5rem',
             }}>
               Senha
             </label>
@@ -101,9 +98,9 @@ export default function Login() {
                 placeholder="••••••••"
                 required
                 style={{
-                  width: '100%', background: 'rgba(20,0,0,0.6)',
-                  border: '1px solid rgba(255,180,120,0.25)', borderRadius: '10px',
-                  padding: '10px 40px 10px 14px', fontSize: '14px', color: '#fff',
+                  width: '100%', background: '#f9fafb',
+                  border: '1px solid #d1d5db', borderRadius: '10px',
+                  padding: '10px 40px 10px 14px', fontSize: '14px', color: '#111',
                   outline: 'none', boxSizing: 'border-box',
                 }}
               />
@@ -112,7 +109,7 @@ export default function Login() {
                 style={{
                   position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)',
                   background: 'none', border: 'none', cursor: 'pointer',
-                  color: 'rgba(255,200,150,0.5)', padding: 0, display: 'flex',
+                  color: '#9ca3af', padding: 0, display: 'flex',
                 }}
               >
                 {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -122,8 +119,8 @@ export default function Login() {
 
           {error && (
             <div style={{
-              fontSize: '13px', color: '#fca5a5', background: 'rgba(180,0,0,0.3)',
-              border: '1px solid rgba(220,50,50,0.4)', borderRadius: '8px',
+              fontSize: '13px', color: '#b91c1c', background: '#fef2f2',
+              border: '1px solid #fecaca', borderRadius: '8px',
               padding: '10px 12px', marginBottom: '1rem',
             }}>
               {error}
@@ -134,7 +131,7 @@ export default function Login() {
             type="button" disabled={loading} onClick={handleSubmit}
             style={{
               width: '100%',
-              background: loading ? 'rgba(180,100,50,0.5)' : 'linear-gradient(135deg, #C0392B, #E74C3C)',
+              background: loading ? '#f87171' : 'linear-gradient(135deg, #C0392B, #E74C3C)',
               border: 'none', borderRadius: '10px', padding: '12px',
               fontSize: '14px', fontWeight: '600', color: '#fff',
               cursor: loading ? 'not-allowed' : 'pointer',
@@ -161,7 +158,7 @@ export default function Login() {
                 onClick={() => setShowRecovery(true)}
                 style={{
                   background: 'none', border: 'none', cursor: 'pointer',
-                  fontSize: '12px', color: 'rgba(255,200,150,0.55)',
+                  fontSize: '12px', color: '#9ca3af',
                   textDecoration: 'underline', padding: 0,
                 }}
               >
@@ -170,22 +167,21 @@ export default function Login() {
             ) : (
               <div style={{
                 marginTop: '0.25rem', padding: '12px',
-                background: 'rgba(255,180,120,0.08)',
-                border: '1px solid rgba(255,180,120,0.2)',
+                background: '#fef9f0',
+                border: '1px solid #fcd34d',
                 borderRadius: '10px', fontSize: '12px',
-                color: 'rgba(255,200,150,0.8)', lineHeight: '1.6',
+                color: '#92400e', lineHeight: '1.6',
               }}>
                 <p style={{ margin: '0 0 0.6rem' }}>
-                  Um e-mail será enviado para o administrador solicitando sua nova senha.
+                  Um e-mail será enviado ao administrador solicitando sua nova senha.
                 </p>
                 <button
                   type="button"
                   onClick={handleRecovery}
                   style={{
-                    background: 'rgba(255,180,120,0.15)',
-                    border: '1px solid rgba(255,180,120,0.35)',
+                    background: '#C0392B', border: 'none',
                     borderRadius: '8px', padding: '6px 16px',
-                    fontSize: '12px', color: 'rgba(255,220,160,0.9)',
+                    fontSize: '12px', color: '#fff',
                     cursor: 'pointer', marginRight: '8px',
                   }}
                 >
@@ -196,7 +192,7 @@ export default function Login() {
                   onClick={() => setShowRecovery(false)}
                   style={{
                     background: 'none', border: 'none',
-                    fontSize: '12px', color: 'rgba(255,200,150,0.4)',
+                    fontSize: '12px', color: '#9ca3af',
                     cursor: 'pointer',
                   }}
                 >
@@ -207,15 +203,15 @@ export default function Login() {
           </div>
         </div>
 
-        <p style={{ textAlign: 'center', fontSize: '12px', color: 'rgba(255,200,150,0.3)', marginTop: '1.5rem' }}>
+        <p style={{ textAlign: 'center', fontSize: '12px', color: '#d1d5db', marginTop: '1.5rem' }}>
           &copy; {new Date().getFullYear()} Vilamore &mdash; Uso interno
         </p>
       </div>
 
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
-        input::placeholder { color: rgba(255,255,255,0.25); }
-        input:focus { border-color: rgba(255,180,120,0.6) !important; }
+        input::placeholder { color: #9ca3af; }
+        input:focus { border-color: #C0392B !important; }
       `}</style>
     </div>
   )
