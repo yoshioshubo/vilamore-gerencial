@@ -3,13 +3,24 @@ import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, LogIn } from 'lucide-react'
 
+const RECOVERY_EMAIL = 'ygshubo@gmail.com'
+
 export default function Login() {
   const { login } = useAuth()
   const navigate = useNavigate()
-  const [form, setForm]       = useState({ username: '', password: '' })
-  const [error, setError]     = useState('')
-  const [showPw, setShowPw]   = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [form, setForm]         = useState({ username: '', password: '' })
+  const [error, setError]       = useState('')
+  const [showPw, setShowPw]     = useState(false)
+  const [loading, setLoading]   = useState(false)
+  const [showRecovery, setShowRecovery] = useState(false)
+
+  const handleRecovery = () => {
+    const subject = encodeURIComponent('Recuperação de Senha — Vilamore Gerencial')
+    const body = encodeURIComponent(
+      `Olá,\n\nEsqueci minha senha de acesso ao sistema Vilamore Gerencial.\n\nUsuário: ${form.username || '(informar)'}\n\nPor favor, enviar nova senha.\n\nObrigado.`
+    )
+    window.location.href = `mailto:${RECOVERY_EMAIL}?subject=${subject}&body=${body}`
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -141,6 +152,59 @@ export default function Login() {
             }
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
+
+          {/* Esqueci minha senha */}
+          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+            {!showRecovery ? (
+              <button
+                type="button"
+                onClick={() => setShowRecovery(true)}
+                style={{
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  fontSize: '12px', color: 'rgba(255,200,150,0.55)',
+                  textDecoration: 'underline', padding: 0,
+                }}
+              >
+                Esqueci minha senha
+              </button>
+            ) : (
+              <div style={{
+                marginTop: '0.25rem', padding: '12px',
+                background: 'rgba(255,180,120,0.08)',
+                border: '1px solid rgba(255,180,120,0.2)',
+                borderRadius: '10px', fontSize: '12px',
+                color: 'rgba(255,200,150,0.8)', lineHeight: '1.6',
+              }}>
+                <p style={{ margin: '0 0 0.6rem' }}>
+                  Um e-mail será enviado para o administrador solicitando sua nova senha.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleRecovery}
+                  style={{
+                    background: 'rgba(255,180,120,0.15)',
+                    border: '1px solid rgba(255,180,120,0.35)',
+                    borderRadius: '8px', padding: '6px 16px',
+                    fontSize: '12px', color: 'rgba(255,220,160,0.9)',
+                    cursor: 'pointer', marginRight: '8px',
+                  }}
+                >
+                  Enviar solicitação
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowRecovery(false)}
+                  style={{
+                    background: 'none', border: 'none',
+                    fontSize: '12px', color: 'rgba(255,200,150,0.4)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Cancelar
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         <p style={{ textAlign: 'center', fontSize: '12px', color: 'rgba(255,200,150,0.3)', marginTop: '1.5rem' }}>
