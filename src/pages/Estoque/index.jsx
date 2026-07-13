@@ -6,7 +6,7 @@ import EstoqueTable from './components/EstoqueTable'
 import LogTab from './components/LogTab'
 import { useAuth } from '../../contexts/AuthContext'
 import { useData } from '../../contexts/DataContext'
-import { CATALOGO_COZINHA } from '../../data/catalogoCozinha'
+import { CATALOGO_COZINHA, GRUPOS_CATALOGO } from '../../data/catalogoCozinha'
 import { db } from '../../lib/firebase'
 import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore'
 import { matchCatalogItem } from '../../utils/matchCatalogItem'
@@ -19,9 +19,10 @@ export default function Estoque() {
   const { user, isOwner } = useAuth()
   const { estoqueData, saveEstoque, updateItem, deleteItem, aliases, currentDate, setCurrentDate, getAvailableDates, applyContagem } = useData()
 
-  const [tab, setTab]           = useState('Controle')
+  const [tab, setTab]             = useState('Controle')
   const [setupMode, setSetupMode] = useState(false)
-  const [rawItems, setRawItems] = useState(null)
+  const [rawItems, setRawItems]   = useState(null)
+  const [grupoFiltro, setGrupoFiltro] = useState('TODOS')
 
   // Auto-load kitchen catalog if no data for today
   useEffect(() => {
@@ -103,8 +104,11 @@ export default function Estoque() {
     setSetupMode(true)
   }
 
-  const items = setupMode ? rawItems : estoqueData?.items
-  const hasData = !!items?.length
+  const allItems = setupMode ? rawItems : estoqueData?.items
+  const items = grupoFiltro === 'TODOS'
+    ? allItems
+    : allItems?.filter(it => it.grupo === grupoFiltro)
+  const hasData = !!allItems?.length
   const availableDates = getAvailableDates()
 
   return (
@@ -169,6 +173,25 @@ export default function Estoque() {
             )}
           </div>
         </div>
+
+        {/* Filtro por grupo */}
+        {hasData && (
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
+            {['TODOS', ...GRUPOS_CATALOGO].map(g => (
+              <button
+                key={g}
+                onClick={() => setGrupoFiltro(g)}
+                className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${
+                  grupoFiltro === g
+                    ? 'bg-climax-gold text-climax-dark'
+                    : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {g}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Setup mode banner */}
         {setupMode && (
